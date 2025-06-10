@@ -1,0 +1,13 @@
+.table tr th{
+    background-color: #1bd66d;
+    color: white;
+}
+
+.obligatorio{
+    color: red;
+}
+
+.form-registro {
+    max-width: 600px;
+    margin: auto;
+}
