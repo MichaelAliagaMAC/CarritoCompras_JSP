@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -83,5 +84,52 @@ public class PedidoDAO {
         }
         return result;
     
+    }
+    
+    public ArrayList<Pedido> ListarPorIdCliente(int id) {
+        ArrayList<Pedido> lista = new ArrayList<>();
+        try {
+            cn = Conexion.getConnection();
+            String sql = "SELECT * FROM Pedido WHERE id_cli = ?";
+            ps = cn.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            
+            
+            while(rs.next()){
+                Pedido obj = new Pedido();
+                obj.setIdPedido(rs.getInt("id_ped"));
+                obj.setFecha(rs.getString("fecha_pod"));
+                obj.setTotal(rs.getDouble("total"));
+                obj.setEstado(rs.getString("estado"));
+                
+                lista.add(obj);
+            
+            }
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+        } finally {
+
+            try {
+
+                if (cn != null) {
+                    cn.close();
+                }
+
+                if (ps != null) {
+                    ps.close();
+                }
+
+                if (rs != null) {
+                    rs.close();
+                }
+
+            } catch (Exception ex) {
+
+            }
+        }
+        return lista;
     }
 }

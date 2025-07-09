@@ -32,11 +32,22 @@
                                             <th>Fecha</th>
                                             <th>Total (S/)</th>
                                             <th>Estado</th>                                  
-                                            <th></th>
+                                            <th>Detalle</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        
+                                        <c:forEach items="${pedidos}" var="item">
+                                            <tr>
+                                                <td>${item.idPedido}}</td>
+                                                <td>${item.fecha}}</td>
+                                                <td>${item.total}}</td>
+                                                <td>${item.estado}}</td>
+                                                <td>
+                                                    <a href="#" class="btn btn-info btn-sm">Ver</a>
+                                                </td>
+                                            </tr>
+                                            
+                                        </c:forEach>
                                     </tbody>
                                 </table>
                             </div>

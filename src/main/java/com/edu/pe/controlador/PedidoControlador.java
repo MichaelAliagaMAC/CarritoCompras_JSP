@@ -45,8 +45,16 @@ public class PedidoControlador extends HttpServlet {
     protected void MisPedidos(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        if (request.getSession().getAttribute("usuario") != null){
+            Cliente objCli = (Cliente) request.getSession().getAttribute("usuario");
+            ArrayList<Pedido> listaPed = pedidoDao.ListarPorIdCliente(objCli.getIdCliente());
+            request.setAttribute("pedidos", listaPed);
+            request.getRequestDispatcher(pagMisPedidos).forward(request, response);
+        }else {
+            request.getRequestDispatcher(pagLogin).forward(request, response);
+        }
         
-        request.getRequestDispatcher(pagMisPedidos).forward(request, response);
+        
     }
     
     protected void Procesar(HttpServletRequest request, HttpServletResponse response)
